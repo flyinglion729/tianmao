@@ -54,7 +54,7 @@ $(function () {
     })
 
     //购物车部分
-    var shoppingArr = [];
+    var shoppingArr = JSON.parse(localStorage.car)||[];
     var oneCar = {};
     var black = $(".num_top").children("strong");
     var blackNum = true;
@@ -109,7 +109,7 @@ $(function () {
         $(".bot_men").children("strong").html(TopDown)
         oneCar.shoeNum = TopDown
     })
-    console.log(111)
+    
     //存储在数据
     $(".btn_car").on("click", function () {
         var twoCar = $.extend({},oneCar)
@@ -146,17 +146,17 @@ $(function () {
             $(".shopping_list").css({bottom:50*childNum})
         })
         $(".shopping_list").children().on("click","span",function(){
-            $(this).parent().remove();
-            var hovern = $(".shopping_list").children();
-            // shoppingArr = []
-            // hovern.each(function(index,value){
-            //     shoppingArr.push(value)
-            // })
-            // console.log(shoppingArr)
-            // localStorage.car = JSON.stringify(shoppingArr);
-            // var changeNum = JSON.parse(localStorage.car)
-            // shopCart(changeNum)
+            var trueNum = $(this).parent().index()
+            shoppingArr.splice(trueNum,1)
+            localStorage.car = JSON.stringify(shoppingArr);
+            var changeNum = JSON.parse(localStorage.car)
+            shopCart(changeNum)
         })
     }
+    function init(){
+        var mm = JSON.parse(localStorage.car)
+        shopCart(mm)
+    }
+    init()
 })
 
